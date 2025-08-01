@@ -17,6 +17,7 @@ def active_passcards_view(request):
         hours_passed = int(time_delta // 3600)
         minutes_passed = int((time_delta % 3600) / 60)
         seconds_passed = int((time_delta % 3600) % 60)
+        print("\n\n",visit.passcard.owner_name)
         print("Зашел в хранилище:\n",localtime(visit.entered_at),"\nНаходиться в хранилище:\n",f"{hours_passed}:{minutes_passed}:{seconds_passed}")
     all_passcards = Passcard.objects.filter(is_active=True)
     context = {
