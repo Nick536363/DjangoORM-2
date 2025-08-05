@@ -19,22 +19,19 @@ def format_duration(total_seconds: int):
     hours_passed = int(total_seconds // 3600)
     minutes_passed = int((total_seconds % 3600) / 60)
     seconds_passed = int((total_seconds % 3600) % 60)
-    return f"{hours_passed}:{minutes_passed}:{seconds_passed}"
+    return (str(hours_passed) if hours_passed >= 10 else "0"+str(hours_passed)) +":"+ (str(minutes_passed) if minutes_passed >= 10 else "0"+str(minutes_passed)) +":"+ (str(seconds_passed) if seconds_passed >= 10 else "0"+str(seconds_passed))
 
 
 def storage_information_view(request):
     # Программируем здесь
+    non_closed_visits = []
     for visit in Visit.objects.filter(leaved_at=None):
-        print("\n\n",visit.passcard.owner_name)
-        print("Зашел в хранилище:\n",localtime(visit.entered_at),"\nНаходиться в хранилище:\n", format_duration(get_duration(visit)))
+        non_closed_visits.append({
+            'who_entered': visit.passcard.owner_name,
+            'entered_at': visit.entered_at,
+            'duration': format_duration(get_duration(visit)),
+        })
 
-    non_closed_visits = [
-        {
-            'who_entered': 'Richard Shaw',
-            'entered_at': '11-04-2018 25:34',
-            'duration': '25:03',
-        }
-    ]
     context = {
         'non_closed_visits': non_closed_visits,  # не закрытые посещения
     }
