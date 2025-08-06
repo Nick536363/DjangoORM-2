@@ -6,28 +6,6 @@ from datetime import datetime
 from datacenter.models import Visit
 
 
-def get_duration(visit: Visit):
-    if visit.leaved_at == None:
-        leaved_at = datetime.now()
-    else:
-        datetime_leave = str(localtime(visit.leaved_at)).split()
-        date_leave = datetime_leave[0].split("-")
-        time_leave = datetime_leave[1].split("+")[0].split(":")
-        leaved_at = datetime(int(date_leave[0]), int(date_leave[1]), int(date_leave[2]), int(time_leave[0]), int(time_leave[1]), int(time_leave[2]))
-    datetime_enter = str(localtime(visit.entered_at)).split()
-    date_enter = datetime_enter[0].split("-")
-    time_enter = datetime_enter[1].split("+")[0].split(":")
-    datetime_enter = datetime(int(date_enter[0]), int(date_enter[1]), int(date_enter[2]), int(time_enter[0]), int(time_enter[1]), int(time_enter[2]))
-    return (leaved_at - datetime_enter).total_seconds()
-
-
-def format_duration(total_seconds: int):
-    hours_passed = int(total_seconds // 3600)
-    minutes_passed = int((total_seconds % 3600) / 60)
-    seconds_passed = int((total_seconds % 3600) % 60)
-    return (str(hours_passed) if hours_passed >= 10 else "0"+str(hours_passed)) +":"+ (str(minutes_passed) if minutes_passed >= 10 else "0"+str(minutes_passed)) +":"+ (str(seconds_passed) if seconds_passed >= 10 else "0"+str(seconds_passed))
-
-
 def storage_information_view(request):
     # Программируем здесь
     non_closed_visits = []
