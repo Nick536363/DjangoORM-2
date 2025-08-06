@@ -1,9 +1,7 @@
 from datacenter.models import Passcard
 from datacenter.models import Visit
 from django.shortcuts import render
-from django.utils.timezone import localtime
-from datetime import datetime
-from datacenter.models import Visit
+from datacenter.models import Visit, format_duration
 
 
 def storage_information_view(request):
@@ -13,7 +11,7 @@ def storage_information_view(request):
         non_closed_visits.append({
             'who_entered': visit.passcard.owner_name,
             'entered_at': visit.entered_at,
-            'duration': format_duration(get_duration(visit)),
+            'duration': format_duration(visit.get_duration()),
         })
 
     context = {
