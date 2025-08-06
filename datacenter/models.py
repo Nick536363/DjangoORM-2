@@ -46,8 +46,9 @@ class Visit(models.Model):
     def is_visit_long(self, minutes = 60):
         return True if self.get_duration() > minutes * 60 else False
 
-    def format_duration(total_seconds: int):
-        hours_passed = int(total_seconds // 3600)
-        minutes_passed = int((total_seconds % 3600) / 60)
-        seconds_passed = int((total_seconds % 3600) % 60)
-        return (str(hours_passed) if hours_passed >= 10 else "0"+str(hours_passed)) +":"+ (str(minutes_passed) if minutes_passed >= 10 else "0"+str(minutes_passed)) +":"+ (str(seconds_passed) if seconds_passed >= 10 else "0"+str(seconds_passed))
+
+def format_duration(total_seconds: int):
+    hours_passed = int(total_seconds // 3600)
+    minutes_passed = int((total_seconds % 3600) / 60)
+    seconds_passed = int((total_seconds % 3600) % 60)
+    return (str(hours_passed) if hours_passed >= 10 else "0"+str(hours_passed)) +":"+ (str(minutes_passed) if minutes_passed >= 10 else "0"+str(minutes_passed)) +":"+ (str(seconds_passed) if seconds_passed >= 10 else "0"+str(seconds_passed))
