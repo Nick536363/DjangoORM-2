@@ -54,4 +54,4 @@ def format_duration(total_seconds: int):
     hours_passed = int(total_seconds // SECONDS_IN_HOUR)
     minutes_passed = int((total_seconds % SECONDS_IN_HOUR) / SECONDS_IN_MINUTE)
     seconds_passed = int((total_seconds % SECONDS_IN_HOUR) % SECONDS_IN_MINUTE)
-    return (str(hours_passed) if hours_passed >= 10 else "0"+str(hours_passed)) +":"+ (str(minutes_passed) if minutes_passed >= 10 else "0"+str(minutes_passed)) +":"+ (str(seconds_passed) if seconds_passed >= 10 else "0"+str(seconds_passed))
+    return f"{hours_passed}:{minutes_passed}:{seconds_passed}"
