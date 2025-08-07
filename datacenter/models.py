@@ -49,7 +49,9 @@ class Visit(models.Model):
 
 
 def format_duration(total_seconds: int):
-    hours_passed = int(total_seconds // 3600)
-    minutes_passed = int((total_seconds % 3600) / 60)
-    seconds_passed = int((total_seconds % 3600) % 60)
+    SECONDS_IN_HOUR = 3600
+    SECONDS_IN_MINUTE = 60
+    hours_passed = int(total_seconds // SECONDS_IN_HOUR)
+    minutes_passed = int((total_seconds % SECONDS_IN_HOUR) / SECONDS_IN_MINUTE)
+    seconds_passed = int((total_seconds % SECONDS_IN_HOUR) % SECONDS_IN_MINUTE)
     return (str(hours_passed) if hours_passed >= 10 else "0"+str(hours_passed)) +":"+ (str(minutes_passed) if minutes_passed >= 10 else "0"+str(minutes_passed)) +":"+ (str(seconds_passed) if seconds_passed >= 10 else "0"+str(seconds_passed))
