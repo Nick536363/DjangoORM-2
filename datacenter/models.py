@@ -32,9 +32,8 @@ class Visit(models.Model):
         )
 
     def get_duration(self):
-        if self.leaved_at == None:
-            leaved_at = datetime.now()
-        else:
+        leaved_at = datetime.now()
+        if self.leaved_at:
             datetime_leave = str(localtime(self.leaved_at)).split()
             date_leave = datetime_leave[0].split("-")
             time_leave = datetime_leave[1].split("+")[0].split(":")
