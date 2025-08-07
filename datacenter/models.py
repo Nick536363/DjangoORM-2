@@ -46,7 +46,7 @@ class Visit(models.Model):
         return (leaved_at - datetime_enter).total_seconds()
 
     def is_visit_long(self, minutes = 60):
-        return True if self.get_duration() > minutes * 60 else False
+        return self.get_duration() > minutes * 60
 
 
 def format_duration(total_seconds: int):
