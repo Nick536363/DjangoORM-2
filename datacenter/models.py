@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.timezone import localtime
-from datetime import datetime
 
 
 class Passcard(models.Model):
@@ -32,17 +31,9 @@ class Visit(models.Model):
         )
 
     def get_duration(self):
-        leaved_at = datetime.now()
-        if self.leaved_at:
-            datetime_leave = str(localtime(self.leaved_at)).split()
-            date_leave = datetime_leave[0].split("-")
-            time_leave = datetime_leave[1].split("+")[0].split(":")
-            leaved_at = datetime(int(date_leave[0]), int(date_leave[1]), int(date_leave[2]), int(time_leave[0]), int(time_leave[1]), int(time_leave[2]))
-        datetime_enter = str(localtime(self.entered_at)).split()
-        date_enter = datetime_enter[0].split("-")
-        time_enter = datetime_enter[1].split("+")[0].split(":")
-        datetime_enter = datetime(int(date_enter[0]), int(date_enter[1]), int(date_enter[2]), int(time_enter[0]), int(time_enter[1]), int(time_enter[2]))
-        return (leaved_at - datetime_enter).total_seconds()
+        entry_time = localtime(self.entered_at)
+        exit_time = localtime(self.leaved_at)
+        return (exit_time - entry_time).total_seconds()
 
     def is_visit_long(self, minutes = 60):
         return self.get_duration() > minutes * 60
